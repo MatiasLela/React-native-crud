@@ -17,7 +17,7 @@ app.get('/alumno/:id', async (req, res) => {
     res.status(200).send(respuesta);
 });
 
-app.post('/alumno', async (req, res) => {
+app.post('/alumno/agregar', async (req, res) => {
     const {apellido, nombre, email, fnac, movil, dni} = req.body;
     const respuesta = await insertarRegistro(apellido, nombre, email, fnac, movil, dni);
     res.status(200).send(respuesta);

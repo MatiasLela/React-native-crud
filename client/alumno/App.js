@@ -1,30 +1,23 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { obtenerAlumno } from './dbFunctions';
-import { useState, useEffect } from 'react';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ActualizarAlumno from './components/ActualizarAlumno';
+import FormularioAlumno from './components/FormularioAlumno';
+import ListaAlumnos from './components/ListaAlumnos';
+import HomePage from './components/Homepage';
+const Stack = createNativeStackNavigator();
 
-export default function App() {
-  const [alumnos, setAlumnos] = useState([]);
-
-  useEffect(() =>{
-    (async () => {
-      await obtenerAlumno().then((data) => {
-        setAlumnos(data);
-      });
-    })
-  }, []);
-
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>{alumnos}</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomePage} />
+        <Stack.Screen name="Actualizar" component={ActualizarAlumno} />
+        <Stack.Screen name="Agregar" component={FormularioAlumno} />
+        <Stack.Screen name="Lista" component={ListaAlumnos} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
